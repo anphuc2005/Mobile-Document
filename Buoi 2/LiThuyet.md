@@ -1,4 +1,4 @@
-# Class và Special Sles trong Kotlin
+# Class và Special Class trong Kotlin
 
 
 ## 1. Class
@@ -24,7 +24,7 @@
     }
     ```
 
-    - Trong Kotlin, không giống như Java, mình không óc hàm sẵn getter/setter để truy cập biến private hoặc hàm private từ bên ngoài class — private thực sự là private, chỉ dùng được trong nội bộ class hoặc file, và không thể truy cập từ bên ngoài bằng bất kỳ cách nào thông thường. Nhưng mình vẫn có thể tự viết để lấy biến cũng như sửa đổi
+    - Trong Kotlin, không giống như Java, mình không có hàm sẵn getter/setter để truy cập biến private hoặc hàm private từ bên ngoài class — private thực sự là private, chỉ dùng được trong nội bộ class hoặc file, và không thể truy cập từ bên ngoài bằng bất kỳ cách nào thông thường. Nhưng mình vẫn có thể tự viết để lấy biến cũng như sửa đổi
     ```kotlin
     private class Human
     {
