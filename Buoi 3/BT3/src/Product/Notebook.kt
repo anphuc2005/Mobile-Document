@@ -1,5 +1,7 @@
 package Product
 
+import View.ConstantInput
+
 data class Notebook (
     override val nameProduct: String,
     override val price: Double,

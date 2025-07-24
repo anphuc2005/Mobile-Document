@@ -18,7 +18,6 @@ data class Book(
             language.lowercase(),
             yearOfPublic.toString(),
             price.toString()
-
         )
     }
 
