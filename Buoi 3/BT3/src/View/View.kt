@@ -19,6 +19,7 @@ class View {
             println("2. Hiển thị tất cả sản phẩm")
             println("3. Thêm sản phẩm mới")
             println("4. Xóa sản phẩm")
+            println("5. Sửa sản phẩm")
             println("0. Thoát")
             print("Chọn chức năng: ")
 
@@ -27,6 +28,7 @@ class View {
                 2 -> hienThiTatCaSanPham()
                 3 -> themSanPhamMoi()
                 4 -> xoaSanPham()
+                5 -> suaSanPham()
                 0 -> {
                     println("Cảm ơn bạn đã sử dụng hệ thống!")
                     break
@@ -149,6 +151,83 @@ class View {
             println("Đã xóa sản phẩm thành công")
         }
         else println("Không tìm thấy số thứ tự sản phẩm để xóa hoặc danh sách không tồn tại")
+    }
+
+    private fun suaSanPham()
+    {
+        hienThiTatCaSanPham()
+        println("Nhập số thứ tự muốn sửa: ")
+        val index: Int = readln().toIntOrNull() ?:0
+        if(store.editProduct(index))
+        {
+            println("Đã sửa sản phẩm thành công")
+        }
+        else
+        {
+            println("Không tim thấy sản phầm cần sửa")
+        }
+    }
+    companion object {
+        fun huongDanSua(product: Product): Product? {
+            println("\n=== SỬA THÔNG TIN SẢN PHẨM ===")
+            println("Thông tin hiện tại: ${product.showInfo()}")
+            println("Nhập thông tin mới:")
+
+            try {
+                when(product) {
+                    is Notebook -> {
+                        val tenSanPham = InputValidator.readNonBlank("Nhập tên sản phẩm: ")
+                        val giaBan = InputValidator.readPositiveDouble("Nhập giá bán: ")
+                        val thuongHieu = InputValidator.readNonBlank("Nhập thương hiệu: ")
+                        val soTrang = InputValidator.readPositiveInt("Nhập số trang: ")
+                        val loaiVo = InputValidator.readValidatedString("Nhập loại vở", ConstantInput.LOAIVO)
+                        val mauSacBia = InputValidator.readNonBlank("Nhập màu sắc bìa: ")
+                        val chatLieuGiay = InputValidator.readValidatedString("Nhập chất liệu giấy", ConstantInput.CHATLIEUGIAY)
+                        val kichThuoc = InputValidator.readValidatedString("Nhập kích thước", ConstantInput.KICKTHUOCVO)
+                        return Notebook(tenSanPham, giaBan, thuongHieu, soTrang, loaiVo, mauSacBia, chatLieuGiay, kichThuoc)
+                    }
+                    is Pencil -> {
+                        val tenSanPham = InputValidator.readNonBlank("Nhập tên sản phẩm: ")
+                        val giaBan = InputValidator.readPositiveDouble("Nhập giá bán: ")
+                        val thuongHieu = InputValidator.readNonBlank("Nhập thương hiệu: ")
+                        val mauSac = InputValidator.readNonBlank("Nhập màu sắc: ")
+                        val chatLieu = InputValidator.readValidatedString("Nhập chất liệu", ConstantInput.CHATLIEUBUTCHI)
+                        val doCung = InputValidator.readValidatedString("Nhập độ cứng", ConstantInput.DOCUNG)
+
+                        return Pencil(tenSanPham, giaBan, thuongHieu, mauSac, chatLieu, doCung)
+                    }
+                    is Pen -> {
+                        val tenSanPham = InputValidator.readNonBlank("Nhập tên sản phẩm: ")
+                        val giaBan = InputValidator.readPositiveDouble("Nhập giá bán: ")
+                        val thuongHieu = InputValidator.readNonBlank("Nhập thương hiệu: ")
+                        val mauSac = InputValidator.readNonBlank("Nhập màu sắc: ")
+                        val chatLieu = InputValidator.readValidatedString("Nhập chất liệu", ConstantInput.CHATLIEUBUTMUC)
+                        val loaiMuc = InputValidator.readValidatedString("Nhập loại mực", ConstantInput.LOAIMUC)
+                        val doMin = InputValidator.readValidatedString("Nhập độ mịn", ConstantInput.DOMIN)
+
+                        return Pen(tenSanPham, giaBan, thuongHieu, mauSac, chatLieu, loaiMuc, doMin)
+                    }
+                    is Book -> {
+                        val tenSanPham = InputValidator.readNonBlank("Nhập tên sản phẩm: ")
+                        val giaBan = InputValidator.readPositiveDouble("Nhập giá bán: ")
+                        val theLoai = InputValidator.readNonBlank("Nhập thể loại: ")
+                        val tacGia = InputValidator.readNonBlank("Nhập tác giả: ")
+                        val nhaXuatBan = InputValidator.readNonBlank("Nhập nhà xuất bản: ")
+                        val namXuatBan = InputValidator.readPositiveInt("Nhập năm xuất bản: ")
+                        val ngonNgu = InputValidator.readNonBlank("Nhập ngôn ngữ: ")
+
+                        return Book(tenSanPham, giaBan, nhaXuatBan, theLoai, tacGia, namXuatBan, ngonNgu)
+                    }
+                    else -> {
+                        println("Loại sản phẩm không được hỗ trợ!")
+                        return null
+                    }
+                }
+            } catch (e: IllegalArgumentException) {
+                println("Lỗi cập nhật sản phẩm: ${e.message}")
+                return null
+            }
+        }
     }
 
     private fun chonKieuHienThi(danhSach: List<Product>) {

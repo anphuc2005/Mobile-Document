@@ -393,8 +393,6 @@ fun eval(e: Shape) =
             is Shape.Square -> println("Square area is ${e.length*e.length}")
             Shape.Rectangle -> println("Rectangle area is ${Shape.Rectangle.length*Shape.Rectangle.breadth}")
         }
-```|   |   |
-|---|---|
-|   |   |
+```
 
 Trong ví dụ trên, không cần câu lệnh else vì trình biên dịch biết tất cả các trường hợp có thể của lớp Shape.

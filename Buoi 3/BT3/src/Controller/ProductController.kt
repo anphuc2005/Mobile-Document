@@ -5,6 +5,7 @@ import Product.Notebook
 import Product.Pencil
 import Product.Pen
 import Product.Product
+import View.View
 
 class ProductController {
     private val listOfProduct = mutableListOf<Product>()
@@ -38,6 +39,21 @@ class ProductController {
         return if (index in 1..listOfProduct.size) {
             val removedProduct = listOfProduct.removeAt(index - 1)
             true
+        } else {
+            false
+        }
+    }
+
+    fun editProduct(index: Int): Boolean{
+        return if (index in 1..listOfProduct.size) {
+            val getProduct = listOfProduct.get(index - 1)
+            val updatedProduct = View.huongDanSua(getProduct)
+            if (updatedProduct != null) {
+                listOfProduct[index - 1] = updatedProduct
+                true
+            } else {
+                false
+            }
         } else {
             false
         }
