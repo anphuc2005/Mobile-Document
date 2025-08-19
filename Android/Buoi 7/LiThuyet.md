@@ -20,6 +20,8 @@
     -  `android:addStatesFromChildren`: true/false view cha kế thừa trạng thái từ view con, `android:clipChildren`: true/ false ViewGroup không hiển thị phần view con nằm ngoài giới hạn của nó, `android:clipToPadding`: true/false ND con không được phép vẽ lên phần padding của ViewGroup.
     - `android:alpha`: Độ trong suốt, `android:background`, `android:clickable`: cho phép click , `android:contentDescription`: Mô tả ngữ nghĩa cho View, dùng cho trợ năng, `android:elevation`:  Độ cao ảo của View (ảnh hưởng đến bóng đổ), `android:focusable`: Cho phép View có thể được focus (lấy tiêu điểm), ví dụ khi dùng bàn phím hoặc điều khiển từ xa., `android:id`, `android:visibility`
 
+
+
 ### 1.2 RelaviteLayout
 - RelativeLayout là một loại Layout mà trong đó, vị trí của các khung nhìn con (children) có thể được mô tả dựa trên mối quan hệ với nhau hoặc với chính Layout cha
 * Các thuộc tính XML riêng của RelativeLayout:
