@@ -1,5 +1,5 @@
 # Fragment
-## 1. Tìm hiểu về Fragment, FragmentMânger, FragmentTransaction
+## 1. Tìm hiểu về Fragment, FragmentManager, FragmentTransaction
 ### 1.1 Fragment là gì.
 - Trong android, tại một thời điểm, chỉ có một Activity được hiển thị duy nhất trên màn hình. Chúng ta muốn chia màn hình ra nhiều phần để sử dụng thì fragment đáp ứng điều đó
 - Fragment là một thành phần android độc lập, được sử dụng bởi một activity, giống như một sub-activity. Fragment có vòng đời và UI riêng. Các Fragment thường có một file java/kotlin đi kèm với giao diện xml. Các fragment không có file giao diện xml thường được gọi là headless fragment.

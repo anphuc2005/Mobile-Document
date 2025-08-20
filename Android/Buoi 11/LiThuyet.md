@@ -246,3 +246,278 @@ private val args: DetailFragmentArgs by navArgs()
 ```
 
 ## 2. Các Navigation component
+
+### 2.1 Bottom Navigation
+- Android Bottom Navigation ở cuối màn hình cung cấp điều hướng giữa các chế độ views ở top-level trong ứng dụng.
+
+- Điều này được giới thiệu trong design support library với khả năng tương thích ngược. Bottom Navigation được sử dụng khi ứng dụng có từ ba đến năm top-level điều hướng.
+
+![img](bottom_navigation.png)
+- Ví dụ về file xml:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:itemBackground="@color/bgBottomNavigation"
+        android:foreground="?attr/selectableItemBackground"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
+        app:menu="@menu/navigation" />
+
+</android.support.design.widget.CoordinatorLayout>
+```
+- app:menu: File menu resource để hiển thị các mục điều hướng cùng với icon và text
+- app:itemBackground: Áp dụng background color cho bottom navigation
+- app:itemTextColor: Màu Text của bottom navigation item
+- app:itemIconTint: Màu icon của bottom navigation item
+
+* Các bước tạo Bottom Navigation Project
+     - B1: Implement thư viện
+     ```kotlin
+    dependencies {
+        implementation 'com.android.support:design:26.1.0'
+    }
+     ```
+     - B2: Tạo một folder navigation và file bottom_navigation.xml để chứa các element của bottom
+     ```xml
+     navigation.xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/navigation_shop"
+            android:icon="@drawable/ic_store_white_24dp"
+            android:title="@string/title_shop" />
+
+        <item
+            android:id="@+id/navigation_gifts"
+            android:icon="@drawable/ic_card_giftcard_white_24dp"
+            android:title="@string/title_gifts" />
+
+        <item
+            android:id="@+id/navigation_cart"
+            android:icon="@drawable/ic_shopping_cart_white_24dp"
+            android:title="@string/title_cart" />
+
+        <item
+            android:id="@+id/navigation_profile"
+            android:icon="@drawable/ic_person_white_24dp"
+            android:title="@string/title_profile" />
+
+    </menu>
+
+     ```
+    - B3: Tạo Bottom_navigation trong file xml của main_activity hoặc fragment
+    ```xml
+    activity_main.xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="info.androidhive.bottomnavigation.MainActivity">
+
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:itemBackground="@color/bgBottomNavigation"
+            android:foreground="?attr/selectableItemBackground"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/navigation" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    ```
+    - B4: Gọi đến trong MainActivity
+    ```kotlin
+    package info.androidhive.bottomnavigation;
+
+    import android.os.Bundle;
+    import android.support.annotation.NonNull;
+    import android.support.design.widget.BottomNavigationView;
+    import android.support.design.widget.CoordinatorLayout;
+    import android.support.v4.app.Fragment;
+    import android.support.v4.app.FragmentTransaction;
+    import android.support.v7.app.ActionBar;
+    import android.support.v7.app.AppCompatActivity;
+    import android.view.MenuItem;
+
+    import info.androidhive.bottomnavigation.fragment.CartFragment;
+    import info.androidhive.bottomnavigation.fragment.GiftsFragment;
+    import info.androidhive.bottomnavigation.fragment.ProfileFragment;
+    import info.androidhive.bottomnavigation.fragment.StoreFragment;
+    import info.androidhive.bottomnavigation.helper.BottomNavigationBehavior;
+
+    public class MainActivity extends AppCompatActivity {
+
+        private ActionBar toolbar;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+
+            toolbar = getSupportActionBar();
+
+            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+            toolbar.setTitle("Shop");
+        }
+
+        private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+                = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                switch (item.getItemId()) {
+                    case R.id.navigation_shop:
+                        toolbar.setTitle("Shop");
+                        return true;
+                    case R.id.navigation_gifts:
+                        toolbar.setTitle("My Gifts");
+                        return true;
+                    case R.id.navigation_cart:
+                        toolbar.setTitle("Cart");
+                        return true;
+                    case R.id.navigation_profile:
+                        toolbar.setTitle("Profile");
+                        return true;
+                }
+                return false;
+            }
+        };
+    }
+    ```
+    Fragment:
+    ```kotlin
+    package info.androidhive.bottomnavigation;
+
+    import android.os.Bundle;
+    import android.support.annotation.NonNull;
+    import android.support.design.widget.BottomNavigationView;
+    import android.support.design.widget.CoordinatorLayout;
+    import android.support.v4.app.Fragment;
+    import android.support.v4.app.FragmentTransaction;
+    import android.support.v7.app.ActionBar;
+    import android.support.v7.app.AppCompatActivity;
+    import android.view.MenuItem;
+
+    import info.androidhive.bottomnavigation.fragment.CartFragment;
+    import info.androidhive.bottomnavigation.fragment.GiftsFragment;
+    import info.androidhive.bottomnavigation.fragment.ProfileFragment;
+    import info.androidhive.bottomnavigation.fragment.StoreFragment;
+    import info.androidhive.bottomnavigation.helper.BottomNavigationBehavior;
+
+    public class MainActivity extends AppCompatActivity {
+
+        private ActionBar toolbar;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+
+            toolbar = getSupportActionBar();
+
+            // load the store fragment by default
+            toolbar.setTitle("Shop");
+            loadFragment(new StoreFragment());
+        }
+
+        private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+                = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                switch (item.getItemId()) {
+                    case R.id.navigation_shop:
+                        toolbar.setTitle("Shop");
+                        fragment = new StoreFragment();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_gifts:
+                        toolbar.setTitle("My Gifts");
+                        fragment = new GiftsFragment();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_cart:
+                        toolbar.setTitle("Cart");
+                        fragment = new CartFragment();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_profile:
+                        toolbar.setTitle("Profile");
+                        fragment = new ProfileFragment();
+                        loadFragment(fragment);
+                        return true;
+                }
+
+                return false;
+            }
+        };
+
+        private void loadFragment(Fragment fragment) {
+            // load fragment
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+    }
+
+    ```
+### 2.2 Tab layout
+- Là một thành phần giao diện người dùng cho phép bạn tổ chức nội dung của ứng dụng thành các tab. Mỗi tab sẽ hiển thị một màn hình hoặc một phần nội dung khác nhau.
+
+- Tab Layout thường được sử dụng cùng với ViewPager hoặc ViewPager2 để người dùng có thể vuốt qua lại giữa các tab.
+
+![img](tabLayout.png)
+
+- Có 2 loại Tab Layout:
+
+    - Tab cố định
+    - Tab cuộn.
+- Tab có một vùng chứa và mỗi mục tab có một biểu tượng và nhãn văn bản (hoặc 1 trong 2).
+
+### 2.3 ViewPager2
+- ViewPager2 là một phiên bản cải tiến của ViewPager, được phát triển bởi Android để cung cấp một cách linh hoạt và hiệu quả hơn trong việc hiển thị các trang (pages) có thể cuộn ngang hoặc dọc trong một ứng dụng Android.
+
+- Các Tính Năng Chính của ViewPager2
+
+    - Hỗ trợ Cuộn Dọc và Ngang: ViewPager2 hỗ trợ cả cuộn ngang (mặc định) và cuộn dọc, cho phép tạo giao diện linh hoạt hơn, đặc biệt là khi muốn hiển thị nội dung cuộn dọc theo một trình tự liên tục.
+    - Sử dụng RecyclerView Làm Nền Tảng: ViewPager2 được xây dựng trên RecyclerView, mang lại hiệu suất cao hơn và tính linh hoạt tốt hơn trong việc quản lý các view. Điều này có nghĩa là có thể dễ dàng áp dụng các tính năng của RecyclerView, như hỗ trợ cho các loại layout manager khác nhau (ví dụ: LinearLayoutManager cho cuộn dọc).
+    - Hỗ Trợ Fragment: ViewPager2 làm việc rất tốt với các Fragment, giúp dễ dàng quản lý và hiển thị các trang dưới dạng các fragment độc lập. Điều này rất hữu ích khi muốn mỗi trang có logic riêng biệt.
+    - Swipe To Dismiss: Một tính năng mới trong ViewPager2 là hỗ trợ "swipe to dismiss" (vuốt để hủy), thường được sử dụng trong các ứng dụng như trình duyệt ảnh.
+    - RTL (Right-to-Left) Support: ViewPager2 có hỗ trợ tích hợp cho giao diện người dùng từ phải sang trái, giúp dễ dàng tạo ứng dụng hỗ trợ nhiều ngôn ngữ khác nhau.
+    
+    ![img](p4.gif)

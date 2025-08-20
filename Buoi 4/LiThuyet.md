@@ -197,7 +197,7 @@ fun main () {
   ```
 
 ## 3. Scope Function
-- Thư viện Kotlin cung cấp một số hàm có mục đích duy nhất là thực thu như vậy trên một đối tượng với một Biểu thứ Lamda có điều kiện. Trong phạm vi này, bạn có thể truy cập đối tượng mà không cần tên của nó. Các hàm như vậy gọi là Scope Function. Có 5 hàm là : `let`, `run`, `with`, `apply`, `also`
+- Thư viện Kotlin cung cấp một số hàm có mục đích duy nhất là thực thu như vậy trên một đối tượng với một Biểu thứ Lamb*-*da có điều kiện. Trong phạm vi này, bạn có thể truy cập đối tượng mà không cần tên của nó. Các hàm như vậy gọi là Scope Function. Có 5 hàm là : `let`, `run`, `with`, `apply`, `also`
 - Tất cả các hàm này đều thực hiện cùng một hành động: thực thi một khối mã trên một đối tượng
 ```kotlin
 Person("Alice", 20, "Amsterdam").let {

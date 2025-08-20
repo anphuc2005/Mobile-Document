@@ -11,10 +11,10 @@
     <ImageView
         android:id="@+id/image_place"
         android:layout_width="match_parent"
-        android:layout_height="453dp"
+        android:layout_height="320dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/back" />
+        android:src="@drawable/back"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
