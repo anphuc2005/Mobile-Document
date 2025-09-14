@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface TaskDAO {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) // Xung đột id thì sẽ thay thế bằng bản ghi mới
     suspend fun insert(task: Task)
 
     @Delete

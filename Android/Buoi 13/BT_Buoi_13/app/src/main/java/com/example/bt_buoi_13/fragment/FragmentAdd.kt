@@ -53,7 +53,7 @@ class FragmentAdd : Fragment() {
 
         val task = Task(title = title, subTitle = subtitle, isCompleted = false)
 
-        lifecycleScope.launch {
+        lifecycleScope.launch { // Các hàm trong DAO dùng ở suspend (Bất đồng bộ) nên dùng để gọi vào main thread
             taskDao.insert(task)
             Toast.makeText(requireContext(), "Task added", Toast.LENGTH_SHORT).show()
 

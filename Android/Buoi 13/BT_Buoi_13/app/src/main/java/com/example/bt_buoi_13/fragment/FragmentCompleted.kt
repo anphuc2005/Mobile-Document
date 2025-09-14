@@ -48,7 +48,6 @@ class FragmentCompleted : Fragment() {
     }
 
     private fun editTask() {
-        // TODO: mở Fragment/BottomSheet để sửa task
     }
 
     private fun deleteTask(task: Task) {

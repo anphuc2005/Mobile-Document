@@ -6,7 +6,7 @@
     - Xử lý chính xác các hành động trên nút back của màn hình hay nút back của app
     - Cung cấp các tài nguyên được tiêu chuẩn hóa cho animations và transaction
     - Thực hiện và xử lý liên kết sâu
-    -Nó hỗ trợ các navigation UI patterns, navigation drawers, và bottom navigation.
+    - Nó hỗ trợ các navigation UI patterns, navigation drawers, và bottom navigation.
     - Được hỗ trợ Safe Args giúp truyền dữ liệu qua các thành phần bên trong Navigation  được an toàn hơn.
     - Hỗ trợ ViewModel hoàn chỉnh - Chúng ta có thể điều chỉnh và mở rộng ViewModel thành biểu đồ điều hướng để chia sẻ dữ liệu liên quan đến giao diện người dùng giữa các điểm đến của biểu đồ.
 
